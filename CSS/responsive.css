@@ -42,4 +42,8 @@
     }
 }
 
-@media (min-width: 1181px) and (max-width: 1300px) {}
+@media (min-width: 1181px) and (max-width: 1300px) {
+    #Gallery{
+        height: 100vh;
+    }
+}
