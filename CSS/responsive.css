@@ -1,0 +1,45 @@
+@media (max-width: 1300px) {
+    .popup .box {
+        width: 300px;
+        height: 300px;
+    }
+
+    .popup .box ul li,
+    .popup .box i {
+        width: 25px;
+        height: 25px;
+        font-size: 10px;
+    }
+
+    .table-responsive {
+        width: 70%;
+    }
+}
+
+@media (min-width: 371px) and (max-width: 1300px) {}
+
+@media (min-width: 577px) and (max-width: 1300px) {
+    .popup .box {
+        width: 350px;
+        height: 350px;
+    }
+
+    .table-responsive {
+        width: 80%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1300px) {
+    .table-responsive {
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1300px) {
+    .popup .box {
+        width: 500px;
+        height: 500px;
+    }
+}
+
+@media (min-width: 1181px) and (max-width: 1300px) {}

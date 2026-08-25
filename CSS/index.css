@@ -1,0 +1,154 @@
+#Gallery{
+        background: linear-gradient(to right,
+         #2c5364,
+         #203a43,
+         #0f2027);
+}
+
+#Gallery .item{
+    width: 250px;
+    height: 250px;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+#Gallery .item .layout{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    color: #fff;
+    opacity: 0;
+    transition-duration: 0.5s;
+}
+
+#Gallery .item:hover .layout{
+    opacity: 1;
+}
+
+#Gallery .item img{
+    transform: scale(1);
+    transition-duration: 0.5s;
+}
+
+#Gallery .item:hover img{
+    transform: scale(1.2);
+}
+
+#Gallery .item .layout i{
+    transition-duration: 0.5s;
+}
+
+#Gallery .item .layout i:hover{
+    color: var(--bs-yellow);
+    transform: rotate(180deg);
+}
+/* *========================POP UP================== */
+.popup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition-duration: 1s;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup.active{
+    display: flex;
+}
+
+.popup.show{
+    opacity: 1;
+}
+
+.popup .box{
+    width: 500px;
+    height: 500px;
+    position: fixed;
+    overflow: hidden;
+    border-radius: 10px;
+    transition-duration: 1s;
+}
+
+.popup .box i{
+    cursor: pointer;
+    position: absolute;
+}
+
+.popup .box i.close{
+    top: 20px;
+    right: 20px;
+}
+
+.popup .box i.next{
+    top: 50%;
+    right: 20px;
+}
+
+.popup .box i.prev{
+    top: 50%;
+    left: 20px;
+}
+
+.popup .box i.prev,
+.popup .box i.next{
+    transform: translateY(-50%);
+}
+
+.table-responsive{
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+
+.popup .box ul{
+    column-gap: 10px;
+    width: max-content;
+    margin: auto;
+}
+
+.popup .box ul li,
+.popup .box i{
+    color: var(--bs-yellow);
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(to right,
+         #2c5364,
+         #203a43,
+         #0f2027);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 14px;
+}
+
+.popup .box ul li.active{
+    background: #fff;
+    
+}
+/* *====================ANIMATION in JS===================== */
+.expand{
+    transform: scale(1.1);
+}
+
+.shaking{
+    animation-name: shake;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+    animation-direction: alternate;
+}

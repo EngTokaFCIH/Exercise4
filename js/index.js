@@ -1,0 +1,147 @@
+let popupKeys = document.querySelectorAll("#Gallery .popupKey"),
+    popupEle = document.querySelector(".popup"),
+    popupBoxEle = popupEle.querySelector(".box"),
+    popupExitKey = popupBoxEle.querySelector(".close"),
+    popupImgEle = popupEle.querySelector("img"),
+    galleryImages = document.querySelectorAll("#Gallery img"),
+    currentImgIndex,
+    popupNextKey = popupBoxEle.querySelector(".next"),
+    popupPrevKey = popupBoxEle.querySelector(".prev"),
+    popupIndicatorContainer = popupEle.querySelector(".indicators");
+
+for (let i = 0; i < galleryImages.length; i++) {
+  let newIndicator = document.createElement("li");
+  console.log(newIndicator);
+  //* to make li have a content inside it =>> textContent
+  newIndicator.textContent = i + 1;
+  if (i == 0) {
+    newIndicator.classList.add("active");
+  }
+  popupIndicatorContainer.append(newIndicator);
+}
+// لما كنت معرفاها فوق ضربت ايرور عشان انا مسكت اللست ايتم قبل ما أضيفها فى ال اتش تى ام ال وده غلط طالما هكريتها من ال جى اس يبقى اكريت ثم اضيف ثم امسكها
+
+let popupIndicators = popupEle.querySelectorAll(".indicators li");
+
+popupKeys.forEach(function (popupKey) {
+  popupKey.addEventListener("click", function () {
+    let currentImgEle = popupKey.parentElement.previousElementSibling,
+        currentImgSrc = currentImgEle.src;
+    updatePopupImage(currentImgSrc);
+    // ***عايزين لما نضغط على زرار ال
+    //*** next , prev
+    //*** الصوره اللى جوه ال
+    //**  popup
+    //*** تتغير
+    //** console.log(galleryImages.indexOf(currentImgEle))=>> error because indexOf() is not in galleryImages although
+    // **   this is an array but it not has all thing in normal array
+    //***   let arr=[...galleryImages];=>>here i converted galleryImages to a real array using spread operator now we can use indexOf()
+    // ** another way to convert to array use Array.from(semiArray)
+    // ** we can use index without need to array =>> bootstrap =>> data-index
+    // ** console.log(currentImgEle.getAttribute("data-index"))
+    // ** console.log(currentImgEle.dataSet.index) =>> as all (data-) is storage in dataSet property
+    galleryImagesArr = Array.from(galleryImages);
+    currentImgIndex = galleryImagesArr.indexOf(currentImgEle);
+    updateIndicators();
+    openPopUp();
+  }
+);
+}
+);
+popupEle.addEventListener("click", closePopUp);
+popupBoxEle.addEventListener("click", function (e) {
+  e.stopPropagation();
+}
+);
+popupExitKey.addEventListener("click", closePopUp);
+popupNextKey.addEventListener("click", function () {
+  // ** first increase then store it not reverse because i want the next index
+  currentImgIndex = ++currentImgIndex % galleryImages.length;
+  // ** old code (++currentImgIndex >= galleryImages.length) ? 0 : currentImgIndex;
+  let nextImgIndex = currentImgIndex;
+  nextImgEle = galleryImages[nextImgIndex];
+  nextImgSrc = nextImgEle.getAttribute("src");
+  updatePopupImage(nextImgSrc);
+  updateIndicators();
+}
+);
+popupPrevKey.addEventListener("click", function () {
+  currentImgIndex =
+    (--currentImgIndex + galleryImages.length) % galleryImages.length;
+  // (--currentImgIndex == -1) ? galleryImages.length -1 : currentImgIndex;
+  let prevImgIndex = currentImgIndex,
+    prevImgEle = galleryImages[prevImgIndex],
+    prevImgSrc = prevImgEle.getAttribute("src");
+  updatePopupImage(prevImgSrc);
+  updateIndicators();
+});
+// (-1 + 6) % 6 => 5
+// (0 + 6) % 6 => 0
+// (1 + 6) % 6 => 1
+// (2 + 6) % 6 => 2
+// (3 + 6) % 6 => 3
+// (4 + 6) % 6 => 4
+// (5 + 6) % 6 => 5
+
+popupIndicators.forEach(function (popupIndicator, currentIndicatorIndex) {
+  popupIndicator.addEventListener("click", function () {
+    let newImgEle = galleryImages[currentIndicatorIndex],
+      newImgSrc = newImgEle.src;
+    currentImgIndex = currentIndicatorIndex;
+    updatePopupImage(newImgSrc);
+    updateIndicators();
+  });
+});
+
+// ==================================================================
+
+document.addEventListener("keydown", function (e) {
+  let key = Number(e.key);
+
+  if (e.key === "Escape") {
+    closePopUp();
+  }
+
+  else if (e.key === "ArrowRight") {
+    currentImgIndex = ++currentImgIndex % galleryImages.length;
+    let newImgEle = galleryImages[currentImgIndex],
+        newImgSrc = newImgEle.src;
+    updatePopupImage(newImgSrc);
+    updateIndicators();
+  }
+   
+  else if (e.key === "ArrowLeft") {
+    currentImgIndex =
+      (--currentImgIndex + galleryImages.length) % galleryImages.length;
+    let newImgEle = galleryImages[currentImgIndex],
+        newImgSrc = newImgEle.src;
+    updatePopupImage(newImgSrc);
+    updateIndicators();
+  } 
+  
+  else if (key > 0 && key <= galleryImages.length) {
+        if (key === currentImgIndex + 1) {
+            popupBoxEle.classList.add("expand");
+            setTimeout(function () {
+            popupBoxEle.classList.remove("expand");
+      }, 300);
+    }
+
+   else{
+      let newImgEle = galleryImages[key - 1],
+      newImgSrc = newImgEle.src;
+      currentImgIndex = key - 1;
+      updatePopupImage(newImgSrc);
+      updateIndicators();
+   }
+  } 
+  else {
+    popupBoxEle.classList.add("shaking");
+    setTimeout(function () {
+      popupBoxEle.classList.remove("shaking");
+    }, 1500);
+  }
+}
+);
+
+
