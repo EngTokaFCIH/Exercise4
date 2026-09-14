@@ -84,6 +84,11 @@
     transition-duration: 1s;
 }
 
+.popup .box img{
+    height: 100%;
+    min-width: 100%;
+}
+
 .popup .box i{
     cursor: pointer;
     position: absolute;
@@ -110,10 +115,23 @@
 }
 
 .table-responsive{
+    width: 80%;
     bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
+    padding-bottom: 5px;
+}
+
+.table-responsive::-webkit-scrollbar{
+    width: 10px;
+    height: 5px;
+}
+
+
+.table-responsive::-webkit-scrollbar-thumb{
+    background-color: #0f2027;
+    border-radius: 5px;
+    margin-top: 5px;
 }
 
 .popup .box ul{
@@ -140,7 +158,7 @@
 
 .popup .box ul li.active{
     background: #fff;
-    
+    border: 2px solid var(--bs-yellow);
 }
 /* *====================ANIMATION in JS===================== */
 .expand{

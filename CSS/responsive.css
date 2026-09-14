@@ -12,7 +12,7 @@
     }
 
     .table-responsive {
-        width: 70%;
+        width: 80%;
     }
 }
 
@@ -23,15 +23,11 @@
         width: 350px;
         height: 350px;
     }
-
-    .table-responsive {
-        width: 80%;
-    }
 }
 
 @media (min-width: 769px) and (max-width: 1300px) {
     .table-responsive {
-        width: 100%;
+        width: 70%;
     }
 }
 
