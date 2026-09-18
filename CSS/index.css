@@ -142,6 +142,7 @@
 
 .popup .box ul li,
 .popup .box i{
+    cursor: pointer;
     color: var(--bs-yellow);
     width: 30px;
     height: 30px;
