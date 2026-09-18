@@ -37,9 +37,9 @@ function updateIndicators() {
   // classList property we can't use it with arrays but on elements in array
 }
 
-function scrollToActiveIndicator(){
+function scrollToActiveIndicator() {
   activeIndicator = document.querySelector("li.active");
-  if(activeIndicator){
+  if (activeIndicator) {
     let tableResponsive = activeIndicator.closest(".table-responsive");
     tableResponsive.scrollLeft = activeIndicator.offsetLeft
 
@@ -70,5 +70,12 @@ function fireKey(keyIn) {
     }, 1500);
   }
 
-  key = ''
+  key = '';
+}
+
+function oneClick() {
+  popupBoxEle.classList.add("expand")
+  setTimeout(function () {
+    popupBoxEle.classList.remove("expand")
+  }, 500)
 }

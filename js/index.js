@@ -1,14 +1,14 @@
 let popupKeys = document.querySelectorAll("#Gallery .popupKey"),
-    popupEle = document.querySelector(".popup"),
-    popupBoxEle = popupEle.querySelector(".box"),
-    popupExitKey = popupBoxEle.querySelector(".close"),
-    popupImgEle = popupEle.querySelector("img"),
-    galleryImages = document.querySelectorAll("#Gallery img"),
-    currentImgIndex,
-    popupNextKey = popupBoxEle.querySelector(".next"),
-    popupPrevKey = popupBoxEle.querySelector(".prev"),
-    popupIndicatorContainer = popupEle.querySelector(".indicators");
-    
+  popupEle = document.querySelector(".popup"),
+  popupBoxEle = popupEle.querySelector(".box"),
+  popupExitKey = popupBoxEle.querySelector(".close"),
+  popupImgEle = popupEle.querySelector("img"),
+  galleryImages = document.querySelectorAll("#Gallery img"),
+  currentImgIndex,
+  popupNextKey = popupBoxEle.querySelector(".next"),
+  popupPrevKey = popupBoxEle.querySelector(".prev"),
+  popupIndicatorContainer = popupEle.querySelector(".indicators");
+
 
 for (let i = 0; i < galleryImages.length; i++) {
   let newIndicator = document.createElement("li");
@@ -25,7 +25,7 @@ let popupIndicators = popupEle.querySelectorAll(".indicators li");
 popupKeys.forEach(function (popupKey) {
   popupKey.addEventListener("click", function () {
     let currentImgEle = popupKey.parentElement.previousElementSibling,
-        currentImgSrc = currentImgEle.src;
+      currentImgSrc = currentImgEle.src;
     updatePopupImage(currentImgSrc);
     //** console.log(galleryImages.indexOf(currentImgEle))=>> error because indexOf() is not in galleryImages although
     // **   this is an array but it not has all thing in normal array
@@ -39,7 +39,7 @@ popupKeys.forEach(function (popupKey) {
     updateIndicators();
     openPopUp();
   }
-);
+  );
 }
 );
 popupEle.addEventListener("click", closePopUp);
@@ -47,7 +47,9 @@ popupBoxEle.addEventListener("click", function (e) {
   e.stopPropagation();
 }
 );
+
 popupExitKey.addEventListener("click", closePopUp);
+
 popupNextKey.addEventListener("click", function () {
   // ** first increase then store it not reverse because i want the next index
   currentImgIndex = ++currentImgIndex % galleryImages.length;
@@ -59,6 +61,7 @@ popupNextKey.addEventListener("click", function () {
   updateIndicators();
 }
 );
+
 popupPrevKey.addEventListener("click", function () {
   currentImgIndex =
     (--currentImgIndex + galleryImages.length) % galleryImages.length;
@@ -69,16 +72,12 @@ popupPrevKey.addEventListener("click", function () {
   updatePopupImage(prevImgSrc);
   updateIndicators();
 });
-// (-1 + 6) % 6 => 5
-// (0 + 6) % 6 => 0
-// (1 + 6) % 6 => 1
-// (2 + 6) % 6 => 2
-// (3 + 6) % 6 => 3
-// (4 + 6) % 6 => 4
-// (5 + 6) % 6 => 5
 
 popupIndicators.forEach(function (popupIndicator, currentIndicatorIndex) {
   popupIndicator.addEventListener("click", function () {
+    if (currentIndicatorIndex === currentImgIndex) {
+      oneClick()
+    }
     let newImgEle = galleryImages[currentIndicatorIndex],
       newImgSrc = newImgEle.src;
     currentImgIndex = currentIndicatorIndex;
@@ -89,42 +88,41 @@ popupIndicators.forEach(function (popupIndicator, currentIndicatorIndex) {
 
 // ==================================================================
 
-  let key = "",
-      lastTimeout;
+let key = "",
+  lastTimeout;
 
 document.addEventListener("keyup", function (e) {
- key += Number(e.key);
+  key += Number(e.key);
 
   if (e.key === "Escape") {
     closePopUp();
+    key = '';
   }
 
   else if (e.key === "ArrowRight") {
     currentImgIndex = ++currentImgIndex % galleryImages.length;
     let newImgEle = galleryImages[currentImgIndex],
-        newImgSrc = newImgEle.src;
+      newImgSrc = newImgEle.src;
     updatePopupImage(newImgSrc);
     updateIndicators();
+    key = '';
   }
-   
+
   else if (e.key === "ArrowLeft") {
     currentImgIndex =
       (--currentImgIndex + galleryImages.length) % galleryImages.length;
     let newImgEle = galleryImages[currentImgIndex],
-        newImgSrc = newImgEle.src;
+      newImgSrc = newImgEle.src;
     updatePopupImage(newImgSrc);
     updateIndicators();
-  } 
+    key = '';
+  }
 
-  else{
-   clearTimeout(lastTimeout)
-   lastTimeout =  setTimeout(function(){
-    fireKey(Number(key))
-   } , 350)
+  else {
+    clearTimeout(lastTimeout)
+    lastTimeout = setTimeout(function () {
+      fireKey(Number(key))
+    }, 350)
   }
 }
 );
-
-
-
-
